@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>我的专属游戏</title>
+</head>
+
+<body style="text-align:center; font-family:Arial; margin-top:50px;">
+
+<h1>🎮 猜数字游戏</h1>
+
+<p>我已经想好了 1-100 的数字</p>
+
+<input id="input" type="number">
+<button onclick="check()">提交</button>
+
+<p id="msg"></p>
+
+<script>
+let secret = Math.floor(Math.random() * 100) + 1;
+let tries = 0;
+let dead = false;
+
+function check() {
+    let guess = Number(document.getElementById("input").value);
+    let msg = document.getElementById("msg");
+
+    if (dead) {
+        if (guess.toString().includes("有趣")) {
+            msg.innerText = "✨ 复活成功！";
+            dead = false;
+            tries = 0;
+            secret = Math.floor(Math.random() * 100) + 1;
+        } else {
+            msg.innerText = "❌ 答错了，无法复活";
+        }
+        return;
+    }
+
+    tries++;
+
+    if (guess < secret) {
+        msg.innerText = "📉 太小了";
+    } 
+    else if (guess > secret) {
+        msg.innerText = "📈 太大了";
+    } 
+    else {
+        msg.innerText = "🎉 猜对了！";
+    }
+
+    if (tries >= 10) {
+        dead = true;
+        msg.innerText = "💀 你死了！回答：陈璟瑜最喜欢什么？";
+    }
+}
+</script>
+
+</body>
+</html>
